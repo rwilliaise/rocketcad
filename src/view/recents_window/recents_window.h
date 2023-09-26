@@ -16,7 +16,8 @@ private slots:
     void newProject();
 
 private:
-    Ui_RecentsWindow ui;
+    Ui::RecentsWindow ui;
+
 };
 
 ROCKETCAD_NAMESPACE_END(View)

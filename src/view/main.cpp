@@ -1,8 +1,8 @@
 
-#include "view/rocketcad_app.h"
+#include "view/app.h"
 
 int main(int argc, char *argv[]) {
-    RocketCad::View::RocketCadApp app(argc, argv);
+    RocketCad::View::App app(argc, argv);
     app.showRecents();
     return app.exec();
 }

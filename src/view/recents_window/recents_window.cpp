@@ -1,6 +1,6 @@
 
 #include "recents_window.h"
-#include "view/rocketcad_app.h"
+#include "view/app.h"
 
 ROCKETCAD_NAMESPACE_BEGIN(View)
 
