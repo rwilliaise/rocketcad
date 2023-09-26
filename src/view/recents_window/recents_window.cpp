@@ -10,7 +10,6 @@ RecentsWindow::RecentsWindow() {
 
 void RecentsWindow::newProject() {
     hide();
-    app().showWorkbench();
 }
 
 ROCKETCAD_NAMESPACE_END(View)

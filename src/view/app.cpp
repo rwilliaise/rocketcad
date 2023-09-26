@@ -16,11 +16,18 @@ void App::showRecents() {
     recents_window->show();
 }
 
-void App::showWorkbench() {
-    if (!workbench_window.get()) {
-        workbench_window = std::make_unique<WorkbenchWindow>();
-    }
+void App::openProject(Data::SharedDocument document) {
+    open_document = document;
+    workbench_window = std::make_unique<WorkbenchWindow>(document);
     workbench_window->show();
+}
+
+void App::closeProject() {
+    WorkbenchWindow *window = workbench_window.release();
+    window->close();
+    delete window;
+
+    open_document = Data::SharedDocument();
 }
 
 App &app() {

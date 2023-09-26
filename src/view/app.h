@@ -3,6 +3,8 @@
 
 #include <rocketcad.h>
 
+#include <data/document.h>
+
 #include "recents_window/recents_window.h"
 #include "workbench_window/workbench_window.h"
 
@@ -17,10 +19,17 @@ public:
     explicit App(int &argc, char *argv[]);
     
     void showRecents();
-    void showWorkbench();
+
+    void openProject(Data::SharedDocument document);
+    void closeProject();
+
+    inline Data::WeakDocument openDocument() {
+        return Data::WeakDocument(open_document);
+    }
 
 private:
 
+    Data::SharedDocument open_document;
     
     std::unique_ptr<RecentsWindow> recents_window;
     std::unique_ptr<WorkbenchWindow> workbench_window;
