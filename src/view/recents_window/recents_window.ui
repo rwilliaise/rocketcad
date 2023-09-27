@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Recent Documents</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../rocketcad.qrc">

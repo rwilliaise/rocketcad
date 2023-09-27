@@ -1,5 +1,6 @@
 
 #include "rocket_object.h"
+#include "data/objects/tubing_object.h"
 
 ROCKETCAD_NAMESPACE_BEGIN(Data)
 
@@ -16,20 +17,25 @@ void RocketObject::serializeChildren(json &out) const {
 }
 
 void RocketObject::deserializeChildren(const json &in) {
-    auto children = in["children"];
+    auto json_children = in["children"];
+    if (json_children.is_array()) return;
 
-    if (children.is_array()) {
-        for (auto child : children) {
-            auto json_type = child["type"];
-            if (!json_type.is_string()) continue;
-            
-            auto type = json_type.template get<RocketObjectType>();
-            
-        }
+    for (auto child : json_children) {
+        auto json_type = child["type"];
+        if (!json_type.is_string()) continue;
+        auto type = json_type.template get<RocketObjectType>();
+        auto out = fromType(type);
+        if (!out.get()) continue;
+        out->deserialize(child);
+        children.push_back(out);
     }
 }
 
 std::shared_ptr<RocketObject> fromType(RocketObjectType type) {
+    switch(type) {
+        case ROCKET_OBJECT_TUBING: return std::make_shared<Object::TubingObject>();
+        default: break;
+    }
 
     return std::shared_ptr<RocketObject>();
 }

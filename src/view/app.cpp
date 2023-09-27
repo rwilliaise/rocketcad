@@ -3,6 +3,7 @@
 
 #include <QFileDialog>
 #include <QStandardPaths>
+#include <filesystem>
 
 ROCKETCAD_NAMESPACE_BEGIN(View)
 
@@ -40,8 +41,8 @@ void App::selectProjectFromFile() {
     );
 
     if (filename.isEmpty()) return;
-
-    Data::SharedDocument document = std::make_shared<Data::Document>(filename.toStdString());
+    std::filesystem::path path(filename.toStdString());
+    Data::SharedDocument document = std::make_shared<Data::Document>(path);
 }
 
 App &app() {
