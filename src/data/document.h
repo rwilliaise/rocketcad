@@ -6,13 +6,20 @@
 #include <filesystem>
 #include <memory>
 
+#include "rocket_object.h"
+
 ROCKETCAD_NAMESPACE_BEGIN(Data)
 
-class Document : public std::enable_shared_from_this<Document> {
+class Document final : public std::enable_shared_from_this<Document>, public RocketObject {
 public: 
+    Document() {};
     Document(std::filesystem::path &path);
 
-    void save();
+    void load();
+    void save() const;
+
+    void serialize(json &out) const override;
+    void deserialize(const json &in) override;
 
     inline void setPath(std::filesystem::path &path) {
         this->path = path;
@@ -20,11 +27,11 @@ public:
 
 private:
     std::filesystem::path path;
+    std::string version = ROCKETCAD_VERSION;
     
-
 };
 
-typedef std::weak_ptr<Document> WeakDocument;
-typedef std::shared_ptr<Document> SharedDocument;
+using WeakDocument = std::weak_ptr<Document>;
+using SharedDocument = std::shared_ptr<Document>;
 
 ROCKETCAD_NAMESPACE_END(Data)

@@ -15,7 +15,7 @@ add_executable(rocketcad_view
     main.cpp
     rocketcad.qrc
 )
-target_link_libraries(rocketcad_view PRIVATE Qt5::Widgets)
+target_link_libraries(rocketcad_view PRIVATE Qt5::Widgets glm rocketcad::data)
 set_target_properties(rocketcad_view PROPERTIES
     AUTOMOC TRUE
     AUTORCC TRUE

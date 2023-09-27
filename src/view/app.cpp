@@ -1,6 +1,9 @@
 
 #include "app.h"
 
+#include <QFileDialog>
+#include <QStandardPaths>
+
 ROCKETCAD_NAMESPACE_BEGIN(View)
 
 App::App(int &argc, char *argv[]) : QApplication(argc, argv) {
@@ -23,11 +26,22 @@ void App::openProject(Data::SharedDocument document) {
 }
 
 void App::closeProject() {
-    WorkbenchWindow *window = workbench_window.release();
-    window->close();
-    delete window;
-
+    workbench_window->close();
+    workbench_window = std::unique_ptr<WorkbenchWindow>();
     open_document = Data::SharedDocument();
+}
+
+void App::selectProjectFromFile() {
+    QString filename = QFileDialog::getOpenFileName(
+        nullptr,
+        tr("Open Project"),
+        QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
+        "Project files (*.rkt, *.ork)" // .ork is OpenRocket document
+    );
+
+    if (filename.isEmpty()) return;
+
+    Data::SharedDocument document = std::make_shared<Data::Document>(filename.toStdString());
 }
 
 App &app() {

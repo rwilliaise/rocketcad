@@ -27,6 +27,8 @@ public:
         return Data::WeakDocument(open_document);
     }
 
+    void selectProjectFromFile();
+
 private:
 
     Data::SharedDocument open_document;
