@@ -3,7 +3,7 @@
 
 #include <rocketcad.h>
 #include <data/data.h>
-#include <vector>
+#include <set>
 
 ROCKETCAD_NAMESPACE_BEGIN(Data)
 
@@ -19,7 +19,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(RocketObjectType, {
     { ROCKET_OBJECT_NOSE_CONE, "nose_cone" },
 })
 
-class RocketObject {
+class RocketObject : public std::enable_shared_from_this<RocketObject> {
 public:
     virtual ~RocketObject() {}
 
@@ -36,7 +36,11 @@ public:
     static std::shared_ptr<RocketObject> fromType(RocketObjectType type);
 
 protected:
-    std::vector<std::shared_ptr<RocketObject>> children;
+    static size_t global_pid;
+    size_t pid = global_pid++; // unique id for the process
+
+protected:
+    std::set<std::shared_ptr<RocketObject>> children;
     std::shared_ptr<RocketObject> parent;
 
 };
