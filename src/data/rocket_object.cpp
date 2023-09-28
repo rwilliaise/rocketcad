@@ -1,6 +1,8 @@
 
 #include "rocket_object.h"
+
 #include "data/objects/tubing_object.h"
+#include "data/objects/nose_cone_object.h"
 
 ROCKETCAD_NAMESPACE_BEGIN(Data)
 
@@ -31,9 +33,17 @@ void RocketObject::deserializeChildren(const json &in) {
     }
 }
 
+void RocketObject::setParent(std::shared_ptr<RocketObject> new_parent) {
+    if (parent.get()) {
+        
+    }
+    parent = new_parent;
+}
+
 std::shared_ptr<RocketObject> fromType(RocketObjectType type) {
     switch(type) {
         case ROCKET_OBJECT_TUBING: return std::make_shared<Object::TubingObject>();
+        case ROCKET_OBJECT_NOSE_CONE: return std::make_shared<Object::NoseConeObject>();
         default: break;
     }
 
