@@ -31,7 +31,7 @@ void RocketObject::deserializeChildren(const json &in) {
         auto out = fromType(type);
         if (!out) continue;
         out->deserialize(child);
-        children.insert(out);
+        children.push_back(out);
     }
 }
 
@@ -44,10 +44,16 @@ void RocketObject::removeChild(std::shared_ptr<RocketObject> child) {
 }
 
 void RocketObject::setParent(std::shared_ptr<RocketObject> new_parent) {
-    if (parent)
-        parent->removeChild(shared_from_this());
     if (new_parent)
-        new_parent->children.insert(shared_from_this());
+        new_parent->children.push_back(shared_from_this());
+    else if (parent)
+        for (int i = 0; i < parent->children.size(); i++) {
+            std::shared_ptr<Data::RocketObject> child = parent->children[i];
+            if (child == shared_from_this()) {
+                parent->children.erase(parent->children.begin() + i);
+                break;
+            }
+        }
     parent = new_parent;
 }
 

@@ -3,7 +3,7 @@
 
 #include <rocketcad.h>
 #include <data/data.h>
-#include <set>
+#include <vector>
 
 ROCKETCAD_NAMESPACE_BEGIN(Data)
 
@@ -25,9 +25,18 @@ public:
 
     virtual void serialize(json &out) const = 0;
     virtual void deserialize(const json &in) = 0;
+    virtual const char *getName() = 0;
 
     void serializeChildren(json &out) const;
     void deserializeChildren(const json &in);
+
+    inline std::shared_ptr<RocketObject> getChild(int row) {
+        return children[row];
+    }
+
+    inline int getChildCount() {
+        return children.size();
+    }
 
     void addChild(std::shared_ptr<RocketObject> child);
     void removeChild(std::shared_ptr<RocketObject> child);
@@ -40,7 +49,7 @@ protected:
     size_t pid = global_pid++; // unique id for the process
 
 protected:
-    std::set<std::shared_ptr<RocketObject>> children;
+    std::vector<std::shared_ptr<RocketObject>> children;
     std::shared_ptr<RocketObject> parent;
 
 };

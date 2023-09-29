@@ -11,6 +11,10 @@ public:
     void serialize(json &out) const override;
     void deserialize(const json &in) override;
 
+    const char *getName() override {
+        return "Tubing";
+    }
+
     inline bool isHollow() {
         return inside_radius != 0 && inside_radius != outside_radius;
     }
