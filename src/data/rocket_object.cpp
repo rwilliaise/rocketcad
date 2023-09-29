@@ -1,8 +1,12 @@
 
 #include "rocket_object.h"
+
 #include "data/objects/tubing_object.h"
+#include "data/objects/nose_cone_object.h"
 
 ROCKETCAD_NAMESPACE_BEGIN(Data)
+
+size_t RocketObject::global_pid = 0;
 
 void RocketObject::serializeChildren(json &out) const {
     auto json_children = json::array();
@@ -25,15 +29,32 @@ void RocketObject::deserializeChildren(const json &in) {
         if (!json_type.is_string()) continue;
         auto type = json_type.template get<RocketObjectType>();
         auto out = fromType(type);
-        if (!out.get()) continue;
+        if (!out) continue;
         out->deserialize(child);
-        children.push_back(out);
+        children.insert(out);
     }
+}
+
+void RocketObject::addChild(std::shared_ptr<RocketObject> child) {
+    child->setParent(shared_from_this());
+}
+
+void RocketObject::removeChild(std::shared_ptr<RocketObject> child) {
+    child->setParent(std::shared_ptr<RocketObject>());
+}
+
+void RocketObject::setParent(std::shared_ptr<RocketObject> new_parent) {
+    if (parent)
+        parent->removeChild(shared_from_this());
+    if (new_parent)
+        new_parent->children.insert(shared_from_this());
+    parent = new_parent;
 }
 
 std::shared_ptr<RocketObject> RocketObject::fromType(RocketObjectType type) {
     switch(type) {
         case ROCKET_OBJECT_TUBING: return std::make_shared<Object::TubingObject>();
+        case ROCKET_OBJECT_NOSE_CONE: return std::make_shared<Object::NoseConeObject>();
         default: break;
     }
 
@@ -41,5 +62,4 @@ std::shared_ptr<RocketObject> RocketObject::fromType(RocketObjectType type) {
 }
 
 ROCKETCAD_NAMESPACE_END(Data)
-
 

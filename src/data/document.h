@@ -27,7 +27,9 @@ public:
 
 private:
     std::filesystem::path path;
-    std::string version = ROCKETCAD_VERSION;
+    std::string cad_version = ROCKETCAD_VERSION;
+    std::string version = "0.1.0";
+    std::string name = "Untitled Rocket";
     
 };
 

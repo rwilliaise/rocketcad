@@ -1,3 +1,7 @@
+/**
+ * objects/
+ * Objects that are represented in a document.
+ */
 
 #pragma once
 

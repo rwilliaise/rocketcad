@@ -5,7 +5,7 @@
 
 ROCKETCAD_OBJECT_NAMESPACE_BEGIN
 
-class TubingObject final : public RocketObject {
+class TubingObject : public RocketObject {
 public:
 
     void serialize(json &out) const override;
@@ -18,7 +18,6 @@ public:
 private: 
     double inside_radius; // R_1
     double outside_radius; // R_2
-    double wall_thickness;
     double length;
 
 };

@@ -23,12 +23,12 @@ void Document::save() const {
 
 void Document::serialize(json &out) const {
     serializeChildren(out);
-    RC_SAVE(version);
+    RC_SAVE(cad_version);
 }
 
 void Document::deserialize(const json &in) {
     deserializeChildren(in);
-    RC_LOAD(version);
+    RC_LOAD(cad_version);
 }
 
 ROCKETCAD_NAMESPACE_END(Data)
