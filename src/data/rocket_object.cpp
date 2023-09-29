@@ -31,7 +31,7 @@ void RocketObject::deserializeChildren(const json &in) {
     }
 }
 
-std::shared_ptr<RocketObject> fromType(RocketObjectType type) {
+std::shared_ptr<RocketObject> RocketObject::fromType(RocketObjectType type) {
     switch(type) {
         case ROCKET_OBJECT_TUBING: return std::make_shared<Object::TubingObject>();
         default: break;

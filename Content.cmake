@@ -1,14 +1,6 @@
 
 include(FetchContent)
 
-set(SIMDJSON_BUILD_STATIC_LIB TRUE)
-
-fetchcontent_declare(
-    simdjson
-    GIT_REPOSITORY https://github.com/simdjson/simdjson.git
-    GIT_TAG v3.3.0
-)
-
 fetchcontent_declare(
     glm
     GIT_REPOSITORY https://github.com/g-truc/glm.git
@@ -16,5 +8,12 @@ fetchcontent_declare(
     FIND_PACKAGE_ARGS NAMES glm
 )
 
-fetchcontent_makeavailable(simdjson glm)
+fetchcontent_declare(
+    GLEW
+    GIT_REPOSITORY https://github.com/nigels-com/glew.git
+    GIT_TAG glew-2.2.0
+    FIND_PACKAGE_ARGS NAMES GLEW
+)
+
+fetchcontent_makeavailable(glm GLEW)
 
