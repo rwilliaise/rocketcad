@@ -1,5 +1,8 @@
 
+#pragma once
+
 #include "render.h"
+#include "render_object.h"
 
 #include <cstdint>
 
@@ -14,8 +17,7 @@ public:
 
 private:
 
-    uint32_t triangle_vao;
-    uint32_t triangle_vbo;
+    RenderObject object = RenderObject(std::shared_ptr<Data::RocketObject>());
 };
 
 ROCKETCAD_RENDER_NAMESPACE_END

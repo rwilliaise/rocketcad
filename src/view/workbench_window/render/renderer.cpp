@@ -62,21 +62,6 @@ void Renderer::initialize() {
     glEnable(GL_MULTISAMPLE);
 
     glClearColor(1, 0, 0, 1);
-    glGenVertexArrays(1, &triangle_vao);
-    glGenBuffers(1, &triangle_vbo);
-
-    float triangle[] = {
-        0, 0.5, 0,
-        0.5, -0.5, 0,
-        -0.5, -0.5, 0,
-    };
-
-    glBindVertexArray(triangle_vao);
-    glBindBuffer(GL_ARRAY_BUFFER, triangle_vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(triangle), triangle, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-    glEnableVertexAttribArray(0);
 }
 
 void Renderer::resize(int w, int h) {
@@ -86,7 +71,7 @@ void Renderer::resize(int w, int h) {
 void Renderer::paint() {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glBindVertexArray(triangle_vao);
+    object.bind();
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 

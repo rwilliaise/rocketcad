@@ -5,6 +5,8 @@ find_package(OpenGL REQUIRED)
 add_executable(rocketcad_view
     workbench_window/render/render.h
     workbench_window/render/render_exception.h
+    workbench_window/render/render_object.cpp
+    workbench_window/render/render_object.h
     workbench_window/render/renderer.cpp
     workbench_window/render/renderer.h
     workbench_window/explorer_item_model.cpp
