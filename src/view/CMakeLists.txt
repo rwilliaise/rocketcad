@@ -7,6 +7,10 @@ add_executable(rocketcad_view
     workbench_window/render/render_exception.h
     workbench_window/render/renderer.cpp
     workbench_window/render/renderer.h
+    workbench_window/explorer_item_model.cpp
+    workbench_window/explorer_item_model.h
+    workbench_window/property_table_model.cpp
+    workbench_window/property_table_model.h
     workbench_window/viewport_widget.cpp
     workbench_window/viewport_widget.h
     workbench_window/workbench_window.cpp

@@ -25,7 +25,7 @@ public:
 
     virtual void serialize(json &out) const = 0;
     virtual void deserialize(const json &in) = 0;
-    virtual const char *getName() = 0;
+    virtual const char *getName() const = 0;
 
     void serializeChildren(json &out) const;
     void deserializeChildren(const json &in);
@@ -41,6 +41,11 @@ public:
     void addChild(std::shared_ptr<RocketObject> child);
     void removeChild(std::shared_ptr<RocketObject> child);
     void setParent(std::shared_ptr<RocketObject> new_parent);
+    int row() const;
+
+    inline std::shared_ptr<RocketObject> getParent() {
+        return parent;
+    }
 
     static std::shared_ptr<RocketObject> fromType(RocketObjectType type);
 

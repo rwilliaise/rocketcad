@@ -12,7 +12,7 @@ public:
     void serialize(json &out) const override;
     void deserialize(const json &in) override;
 
-    const char *getName() override {
+    const char *getName() const override {
         return "Connector";
     }
 

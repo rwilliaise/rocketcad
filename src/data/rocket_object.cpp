@@ -49,12 +49,22 @@ void RocketObject::setParent(std::shared_ptr<RocketObject> new_parent) {
     else if (parent)
         for (int i = 0; i < parent->children.size(); i++) {
             std::shared_ptr<Data::RocketObject> child = parent->children[i];
-            if (child == shared_from_this()) {
+            if (child.get() == this) {
                 parent->children.erase(parent->children.begin() + i);
                 break;
             }
         }
     parent = new_parent;
+}
+
+int RocketObject::row() const {
+    if (!parent) return -1;
+    for (int i = 0; i < parent->children.size(); i++) {
+        if (parent->children[i].get() == this) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 std::shared_ptr<RocketObject> RocketObject::fromType(RocketObjectType type) {

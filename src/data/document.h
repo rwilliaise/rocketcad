@@ -21,6 +21,10 @@ public:
     void serialize(json &out) const override;
     void deserialize(const json &in) override;
 
+    const char *getName() const override {
+        return "Document";
+    }
+
     inline void setPath(std::filesystem::path &path) {
         this->path = path;
     }
