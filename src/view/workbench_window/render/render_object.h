@@ -19,6 +19,7 @@ public:
     RenderObject &operator=(const RenderObject &) = delete;
     RenderObject &operator=(RenderObject &&) noexcept = default;
 
+    void generate();
     void bind();
     void update();
 

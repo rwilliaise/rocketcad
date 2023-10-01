@@ -17,7 +17,7 @@ public:
 
 private:
 
-    RenderObject object = RenderObject(std::shared_ptr<Data::RocketObject>());
+    RenderObject object;
 };
 
 ROCKETCAD_RENDER_NAMESPACE_END

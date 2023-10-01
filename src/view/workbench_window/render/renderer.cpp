@@ -5,6 +5,14 @@
 #include <GL/glew.h>
 #include <iostream>
 
+#if !NDEBUG && !GL_KHR_debug
+#warning "GL_KHR_debug is not available - some debug messages will not be visible."
+#endif
+
+#if !GL_VERSION_3_0
+#error "GL version too old."
+#endif
+
 ROCKETCAD_RENDER_NAMESPACE_BEGIN
 
 #ifndef NDEBUG
@@ -50,18 +58,14 @@ void Renderer::initialize() {
         throw RenderException("GLEW failed to initialize.");
     }
 
-    if (!GL_VERSION_3_0) throw RenderException("GL too old!");
-
-#ifndef NDEBUG
-    if (GL_KHR_debug) {
-        glEnable(GL_DEBUG_OUTPUT);
-        glDebugMessageCallback(debugCallback, this);
-    }
+#if !NDEBUG && GL_KHR_debug
+    glEnable(GL_DEBUG_OUTPUT);
+    glDebugMessageCallback(debugCallback, this);
 #endif
 
     glEnable(GL_MULTISAMPLE);
-
     glClearColor(1, 0, 0, 1);
+    object.generate();
 }
 
 void Renderer::resize(int w, int h) {
