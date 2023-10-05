@@ -1,5 +1,7 @@
 
 #include "recents_window.h"
+
+#include "data/objects/tubing_object.h"
 #include "view/app.h"
 
 ROCKETCAD_NAMESPACE_BEGIN(View)
@@ -11,7 +13,9 @@ RecentsWindow::RecentsWindow() {
 
 void RecentsWindow::newProject() {
     hide();
-    app().openProject(std::make_shared<Data::Document>());
+    auto project = std::make_shared<Data::Document>();
+    project->addChild(std::make_shared<Data::Object::TubingObject>());
+    app().openProject(project);
 }
 
 ROCKETCAD_NAMESPACE_END(View)

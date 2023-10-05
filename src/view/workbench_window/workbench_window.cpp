@@ -9,7 +9,10 @@ ROCKETCAD_NAMESPACE_BEGIN(View)
 
 WorkbenchWindow::WorkbenchWindow(Data::SharedDocument doc) : open_document(doc) {
     ui.setupUi(this);
-    ui.explorer_tree->setModel(new ExplorerItemModel(open_document, this));
+    
+    ExplorerItemModel *model = new ExplorerItemModel(open_document, ui.explorer_tree);
+    ui.explorer_tree->setModel(model);
+    ui.explorer_tree->setRootIndex(model->index(0, 0));
 }
 
 void WorkbenchWindow::closeProject() {

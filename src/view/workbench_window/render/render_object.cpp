@@ -25,7 +25,7 @@ void RenderObject::bind() {
 }
 
 void RenderObject::update() {
-    if (!object) return;
+    // if (!object) return;
 
     const float data[] = {
         0.0, 0.5, 0.0,

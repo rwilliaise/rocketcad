@@ -24,7 +24,6 @@ public:
 
 private: 
     Data::RocketObject *getObject(const QModelIndex &index) const;
-
     Data::SharedDocument document;
 
 };

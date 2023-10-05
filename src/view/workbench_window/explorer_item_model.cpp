@@ -6,7 +6,7 @@ ROCKETCAD_NAMESPACE_BEGIN(View)
 
 Data::RocketObject *ExplorerItemModel::getObject(const QModelIndex &index) const {
     if (!index.isValid())
-        return document.get(); // FIXME: this... sucks
+        return document.get();
     else
         return static_cast<Data::RocketObject *>(index.internalPointer());
 }
@@ -22,7 +22,7 @@ int ExplorerItemModel::columnCount(const QModelIndex &parent) const {
 }
 
 QVariant ExplorerItemModel::data(const QModelIndex &index, int role) const {
-    if (!index.isValid()) return QString("hey");
+    if (!index.isValid()) return QVariant();
     Data::RocketObject *object = getObject(index);
     return QString(object->getName());
 }
@@ -39,7 +39,7 @@ QModelIndex ExplorerItemModel::index(int row, int column, const QModelIndex &par
 
     Data::RocketObject *parent_object = getObject(parent);
     Data::RocketObject *child_object = parent_object->getChild(row).get();
-    if (!child_object) return QModelIndex();
+    if (child_object == nullptr) return QModelIndex();
     return createIndex(row, column, child_object);
 }
 
@@ -48,7 +48,7 @@ QModelIndex ExplorerItemModel::parent(const QModelIndex &index) const {
     Data::RocketObject *child_object = static_cast<Data::RocketObject *>(index.internalPointer());
     std::shared_ptr<Data::RocketObject> parent_object = child_object->getParent();
 
-    if (parent_object == document) return QModelIndex();
+    // if (parent_object == document) return QModelIndex();
     return createIndex(parent_object->row(), 0, parent_object.get());
 }
 

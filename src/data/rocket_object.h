@@ -5,6 +5,9 @@
 #include <data/data.h>
 #include <vector>
 
+#define ROCKETCAD_OBJECT_DEFINE_PROPERTIES(name) extern const std::unordered_map<
+#define ROCKETCAD_OBJECT_INIT_PROPERTIES(name, map) 
+
 ROCKETCAD_NAMESPACE_BEGIN(Data)
 
 enum RocketObjectType {
