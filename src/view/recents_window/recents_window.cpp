@@ -14,7 +14,8 @@ RecentsWindow::RecentsWindow() {
 void RecentsWindow::newProject() {
     hide();
     auto project = std::make_shared<Data::Document>();
-    project->addChild(std::make_shared<Data::Object::TubingObject>());
+    auto tubing = std::make_shared<Data::Object::TubingObject>();
+    project->addChild(tubing);
     app().openProject(project);
 }
 

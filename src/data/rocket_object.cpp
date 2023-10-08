@@ -46,11 +46,12 @@ void RocketObject::removeChild(std::shared_ptr<RocketObject> child) {
 void RocketObject::setParent(std::shared_ptr<RocketObject> new_parent) {
     if (new_parent)
         new_parent->children.push_back(shared_from_this());
-    if (parent) {
-        for (int i = 0; i < parent->children.size(); i++) {
-            std::shared_ptr<Data::RocketObject> child = parent->children[i];
+    auto old_parent = getParent();
+    if (old_parent) {
+        for (int i = 0; i < old_parent->children.size(); i++) {
+            std::shared_ptr<Data::RocketObject> child = old_parent->children[i];
             if (child.get() == this) {
-                parent->children.erase(parent->children.begin() + i);
+                old_parent->children.erase(old_parent->children.begin() + i);
                 break;
             }
         }
@@ -59,9 +60,10 @@ void RocketObject::setParent(std::shared_ptr<RocketObject> new_parent) {
 }
 
 int RocketObject::row() const {
-    if (!parent) return -1;
-    for (int i = 0; i < parent->children.size(); i++) {
-        if (parent->children[i].get() == this) {
+    auto current_parent = getParent();
+    if (!current_parent) return -1;
+    for (int i = 0; i < current_parent->children.size(); i++) {
+        if (current_parent->children[i].get() == this) {
             return i;
         }
     }

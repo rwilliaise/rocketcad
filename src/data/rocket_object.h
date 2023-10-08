@@ -46,8 +46,8 @@ public:
     void setParent(std::shared_ptr<RocketObject> new_parent);
     int row() const;
 
-    inline std::shared_ptr<RocketObject> getParent() {
-        return parent;
+    inline std::shared_ptr<RocketObject> getParent() const {
+        return parent.lock();
     }
 
     static std::shared_ptr<RocketObject> fromType(RocketObjectType type);
@@ -58,7 +58,7 @@ protected:
 
 protected:
     std::vector<std::shared_ptr<RocketObject>> children;
-    std::shared_ptr<RocketObject> parent;
+    std::weak_ptr<RocketObject> parent;
 
 };
 
